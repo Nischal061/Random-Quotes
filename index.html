@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes</title>
+
+</head>
+<body>
+    
+</body>
+<script>
+   fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://zenquotes.io/api/quotes'))
+        .then(response => response.json())
+        .then(data => {
+            const quotes = JSON.parse(data.contents);
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            const quote = randomQuote.q;
+            const author = randomQuote.a;
+        let quotedata = document.createElement('div');
+            document.body.appendChild(quotedata);
+            quotedata.innerHTML = `<h1>${quote}</h1><h3>${author}</h3>`;
+            let button = document.createElement('button');
+        button.innerHTML = "Get New Quote";
+        document.body.appendChild(button);
+        button.style.marginTop = "20px";
+        button.style.padding = "10px 20px";
+        button.style.borderRadius = "5px";
+        button.style.backgroundColor = "#007BFF";
+        button.style.color = "white";
+        button.addEventListener('click', function() {
+            location.reload();
+        });
+        console.log(quote, author);
+
+        })
+        .catch(error => alert('Error fetching the quote'));
+
+       
+</script>
+</html>
